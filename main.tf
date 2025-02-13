@@ -52,8 +52,10 @@ resource "spacelift_stack" "this" {
   worker_pool_id           = var.worker_pool_id
   project_root             = var.project_root
   labels                   = var.labels
-  enable_local_preview     = true
-  autodeploy               = var.auto_deploy
+  enable_local_preview     = var.enable_local_preview
+  enable_well_known_secret_masking = var.enable_well_known_secret_masking
+  autodeploy               = var.autodeploy
+  autoretry                = var.autoretry
   manage_state             = var.manage_state
   terraform_workflow_tool  = local.is_tf_tool ? var.workflow_tool : null
   space_id                 = var.space_id
@@ -65,7 +67,8 @@ resource "spacelift_stack" "this" {
 
   administrative = var.administrative
 
-  terraform_smart_sanitization = true
+  terraform_external_state_access = var.terraform_external_state_access
+  terraform_smart_sanitization = var.terraform_smart_sanitization
 
   before_init    = local.hooks.before.init
   before_plan    = local.hooks.before.plan

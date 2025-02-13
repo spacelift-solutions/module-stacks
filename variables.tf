@@ -22,10 +22,16 @@ variable "ansible_playbook" {
   default     = null
 }
 
-variable "auto_deploy" {
+variable "autodeploy" {
   type        = bool
   description = "Whether to auto deploy the stack."
   default     = false
+}
+
+variable "autoretry" {
+  type        = bool
+  description = "Whether to auto retry the stack"
+default       = false
 }
 
 variable "aws_integration" {
@@ -108,6 +114,18 @@ variable "drift_detection" {
     condition     = var.drift_detection.enabled == false || (var.drift_detection.enabled && var.drift_detection.schedule != null)
     error_message = "The schedule must be included if drift detection is enabled"
   }
+}
+
+variable "enable_local_preview" {
+  type        = bool
+  description = "Enable local preview"
+  default     = false
+}
+
+variable "enable_well_known_secret_masking" {
+  type        = bool
+  description = "Enable well known secret masking"
+  default     = true
 }
 
 variable "environment_variables" {
@@ -219,6 +237,18 @@ variable "runner_image" {
 variable "space_id" {
   type        = string
   description = "REQUIRED The ID of the space this stack will be in."
+}
+
+variable "terraform_external_state_access" {
+  type        = bool
+  description = "Terraform external state access"
+  default     = false
+}
+
+variable "terraform_smart_sanitization" {
+  type        = bool
+  description = "Terraform smart sanitization"
+  default     = true
 }
 
 variable "terragrunt_config" {

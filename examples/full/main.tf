@@ -10,7 +10,15 @@ module "ec2_worker_pool_stack" {
   manage_state          = true
   protect_from_deletion = true
 
-  auto_deploy     = true
+  autodeploy     = true
+  autoretry      = true
+
+  enable_local_preview = true
+  enable_well_known_secret_masking = true
+
+  terraform_external_state_access = false
+  terraform_smart_sanitization    = true
+
   administrative  = true
   allow_promotion = true
   tf_version      = "1.7.1"
